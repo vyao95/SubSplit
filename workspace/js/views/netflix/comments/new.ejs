@@ -1,0 +1,24 @@
+<% include ../../partials/header.ejs %>
+<div class="container">
+    <div class = "row">
+        <h1 style="text-align:center">Add New Comment to <%= netflix.name %> </h1>
+        <div style ="width: 30%; margin: 25px auto;" >
+        <!--/netflix because that is where all the post stuff will occur-->
+        <form action="/netflix/<%= netflix._id %>/comments" method="POST"> 
+            <!-- The name attribute which I set the value to be nameS is how the data is added to
+            the request body, so when I submit this... with some data, ex:hi, it will be sent under the
+            name of nameS and then inside of app.js, we can extract it using req.body.nameS only if we included
+            bodyparser. Body parser will take the request body and parse it into a javascript object that I can
+            use and access -->
+            <div class= "form-group">
+                <input class="form-control" type="text" name="comment[text]" placeholder="author">
+            </div>
+            <div class= "form-group">
+                <button class="btn btn-lg btn-primary btn-block">Submit!</button>
+            </div>
+        </form>
+        <a href="/netflix">Go!</a>
+        </div>
+    </div>
+</div>
+<% include ../../partials/footer.ejs %>

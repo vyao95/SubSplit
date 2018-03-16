@@ -1,0 +1,67 @@
+<% include ../../partials/header.ejs %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">Welcome!</p>
+            <div class="list-group">
+                <!--<li class="list-group-item active">Info 1</li>-->
+                <!--<li class="list-group-item">Info 2</li>-->
+                <!--<li class="list-group-item">Info 3</li>-->
+                <!--Edit that specific ID's post-->
+                <br>
+                    <!--If there is a current user logged in and the ID matches the USER that is logged in-->
+                    <% if(currentUser && netflixshow.author.id.equals(currentUser._id)){ %>    
+                        <a class="btn btn-lg btn-warning" href="/netflix/<%=netflixshow._id%>/edit">Edit Post</a>
+                        <br><br>
+                        <!--Method Override Delete Route-->
+                        <form id="delete" action="/netflix/<%=netflixshow._id %>?_method=DELETE" method="POST">
+                          <button class="btn btn-lg btn-danger ">Delete Post!</button>
+                        </form>
+                        <br><br>
+                     <% } %>   
+                 <!--Redirect back to home-->
+                <a class="btn btn-lg btn-primary" href="/netflix">View All Groups</a>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="img-responsive" src="<%= netflixshow.image %>">
+                <div class="caption-full">
+                    <h4 class="pull-right">$<%=netflixshow.price %>/month</h4>
+                    <h4><a>Group Name: <%=netflixshow.name%> </a></h4> 
+                    <h4>Description: <%=netflixshow.description%></h4> 
+                        <p>
+                        <em>Submitted By <%= netflixshow.author.username %> , <%= moment(netflixshow.created).fromNow() %> </em>
+                        </p>
+                    <h4>Date Created: <%=netflixshow.created.toDateString()%></h4>
+                    <!--<h4>Rating <%=netflixshow.starrating%> </h4>-->
+                </div>
+            </div>
+            <div class="well">
+                <div class="text-right">
+                     <!--Render the comments's folder's new.ejs form-->
+                     <a class="btn btn-success" href="/netflix/<%=netflixshow._id%>/comments/new"> Add Comments on Your Experience</a>
+                </div>
+                <hr>
+                <% netflixshow.comments.forEach(function(comment){ %>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <strong><%=comment.author.username%></strong>
+                            <span class="pull-right"><%= moment(comment.created).fromNow()%></span>
+                            <p>
+                                <%= comment.text %>
+                            </p>
+                            <% if(currentUser && comment.author.id.equals(currentUser._id)){ %>   
+                                <a class="btn btn-xs btn-warning" href="/netflix/<%=netflixshow._id %>/comments/<%=comment._id%>/edit">Edit Comment</a>
+                                <form id="delete" action="/netflix/<%=netflixshow._id %>/comments/<%=comment._id %>?_method=DELETE" method="POST">
+                                    <button class="btn btn-xs btn-danger " value = "Delete">Delete Comment!</button>
+                                </form>
+                            <% } %> 
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>  
+<% include ../../partials/footer.ejs %>

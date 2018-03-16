@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title> Subscription Splitter</title>
+<!--Bootstrap 3.3.5, Main CSS-->
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">  <!--Need this-->
+	<link rel="stylesheet" type="text/css" href="/css/app.css"> <!--Need this and also the /css/app.css is relevant because its served in the public directory, but still needs its route. Same w/ img--> 
+<!--W3schools-->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">  <!--Need this-->
+<!--Google Fonts-->
+<!--<link href="https://fonts.googleapis.com/css?family=Avenir" rel="stylesheet">-->
+	<link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Berkshire+Swash" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+</head>
+<body>
+<!--NavBar-->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-nav-demo" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a href="/" class="navbar-brand"><i class="fas fa-home"></i> Home</a>
+		</div>
+		<!--Collapse the 2 li-->
+		<div class="collapse navbar-collapse" id="bs-nav-demo">
+			<!--right-->
+			<ul class="nav navbar-nav navbar-right">
+				<!--<li>-->
+				<!--	<a href="/auth/facebook" id="login"><i class="fas fa-facebook"></i>Facebook</a>-->
+				<!--</li>-->
+				<% if(!currentUser){ %>
+					<li>
+						<a href="/register">Sign Up</a> 
+					</li>
+					<li>
+						<a href="/login">Login</a>
+					</li>
+				<%	} else { %>
+					<li><a href="#"> Signed In As <%= currentUser.username %> </a> </li>
+					<li>
+						<a href="/logout">Logout</a>
+					</li>
+				<%	} %> 
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class = "container">
+	<% if(error && error.length > 0){ %>
+		<div class="alert alert-danger" role="alert">
+			<%= error %>
+		</div>
+	<% } %>
+	
+	<% if(success && success.length > 0){ %>
+		<div class="alert alert-success" role="alert">
+			<%= success %>
+		</div>
+	<% } %>
+</div>
